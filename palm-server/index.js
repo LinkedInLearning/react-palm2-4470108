@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { TextServiceClient } =
   require("@google-ai/generativelanguage").v1beta2;
 
