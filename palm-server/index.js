@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
 const { TextServiceClient } =
   require("@google-ai/generativelanguage").v1beta2;
@@ -15,9 +17,10 @@ const client = new TextServiceClient({
 });
 
 let answer = null;
-const prompt = "Repeat after me: one, two,";
+let prompt = "Repeat after me: one, two,";
 
-app.get('/api', (req, res) => {
+app.post('/api', (req, res) => {
+  prompt = req.body.prompt;
   client
     .generateText({
       model: MODEL_NAME,

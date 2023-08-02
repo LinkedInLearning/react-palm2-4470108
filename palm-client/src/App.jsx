@@ -2,14 +2,21 @@ import { useState, useEffect } from 'react'
 
 function App() {
   const [serverData, setServerData] = useState('')
-  useEffect(() => {
-    fetch("/api")
+  function handleSubmit() {
+    const userPrompt = 'The Quick Brown Fox'
+    fetch('/api', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 'prompt': userPrompt })
+    })
       .then((res) => res.json())
       .then((data) => {
         setServerData(data)
         console.log(data)
       })
-  }, [])
+  }
 
   return (
     <main style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -23,7 +30,7 @@ function App() {
       </div>
       <div style={{ display: 'flex', alignItems: 'end', backgroundColor: '#222', padding: '10px' }}>
         <textarea style={{ margin: '0', flexGrow: '1', overflowY: 'hidden' }} placeholder='Type in Prompt...' />
-        <button style={{ margin: '0', flex: '1', marginLeft: '10px' }}>Go</button>
+        <button onClick={handleSubmit} style={{ margin: '0', flex: '1', marginLeft: '10px' }}>Go</button>
       </div>
     </main>
   )
