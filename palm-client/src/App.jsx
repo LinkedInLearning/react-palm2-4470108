@@ -1,4 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import DOMPurify from 'dompurify'
+import { marked } from 'marked'
+
+marked.use({
+  gfm: true,
+})
+
 
 function App() {
   const [serverData, setServerData] = useState('')
@@ -13,7 +20,8 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setServerData(data)
+        const html = DOMPurify.sanitize(marked(data))
+        setServerData({ ...data, html })
         console.log(data)
       })
   }
@@ -23,9 +31,7 @@ function App() {
       <h1 style={{ padding: '10px', marginBottom: '0' }}>MyPrompter</h1>
       <div style={{ margin: '0', flexGrow: '1', overflow: 'scroll' }}>
         <div style={{ width: '100%', height: '100%' }}>
-          <article style={{ margin: '0' }}>
-            {serverData}
-          </article>
+          <article style={{ margin: '0' }} dangerouslySetInnerHTML={{ __html: serverData.html }} />
         </div>
       </div>
       <div style={{ display: 'flex', alignItems: 'end', backgroundColor: '#222', padding: '10px' }}>
