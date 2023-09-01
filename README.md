@@ -1,4 +1,4 @@
-#  Building a React Project with Google Bard and the PalM2 API - 09/01/23 - 
+#  Building a React Project with Google Bard and the PalM2 API 
 This is the repository for the LinkedIn Learning course ` Building a React Project with Google Bard and the PalM2 API - 09/01/23 - `. The full course is available from [LinkedIn Learning]
 
 ![course-name-alt-text][lil-thumbnail-url] 
